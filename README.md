@@ -150,13 +150,13 @@ Set a custom commit message for version bump commit. Useful for skipping additio
     commit-message: 'CI: bumps version to {{version}} [skip ci]'
 ```
 
-#### [DEPRECATED] **push:**
-**DEPRECATED** Set false you want to avoid pushing the new version tag/package.json. Example:
+#### **commit-before:**
+Add a command message before commit. Example:
 ```yaml
 - name:  'Automated Version Bump'
   uses:  'alphaprime-dev/gh-action-bump-version@master'
   env:
     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   with:
-    push: false
+    commit-before: 'yarn build,yarn auto-test'
 ```
