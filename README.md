@@ -37,18 +37,18 @@ Remove the 'actions/setup-node@v1' step from your action.yml file
 
 
 #### **wording:** 
-Customize the messages that trigger the version bump. It must be a string, case sensitive, coma separated  (optional). Example:
+Customize the messages that trigger the version bump. It must be a regex string, case sensitive, coma separated  (optional). Example:
 ```yaml
 - name:  'Automated Version Bump'
   uses:  'alphaprime-dev/gh-action-bump-version@master'
   env:
     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   with:
-    minor-wording:  'add,Adds,new'
-    major-wording:  'MAJOR,cut-major'
-    patch-wording:  'patch,fixes'     # Providing patch-wording will override commits
-                                      # defaulting to a patch bump.
-    rc-wording:     'RELEASE,alpha'
+    minor-wording:  '/add/i,/new/'
+    major-wording:  '/MAJOR/,/cut-major/'
+    patch-wording:  '/patch/,/fixes/'     # Providing patch-wording will override commits
+                                          # defaulting to a patch bump.
+    rc-wording:     '/RELEASE/,/alpha/'
 ```
 #### **default:**
 Set a default version bump to use  (optional - defaults to patch). Example:
