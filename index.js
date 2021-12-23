@@ -39,9 +39,9 @@ const workspace = process.env.GITHUB_WORKSPACE;
   const patchWord = process.env['INPUT_PATCH-WORDING'] || '';
   const preReleaseWord = process.env['INPUT_RC-WORDING'] || '';
 
-  const beforeCommits = process.env['INPUT_COMMIT-BEFORE'] ? process.env['INPUT_COMMIT-BEFORE'].split(',') : null;
+  const beforeCommit = process.env['INPUT_COMMIT-BEFORE'] ? process.env['INPUT_COMMIT-BEFORE'].split(',') : null;
 
-  console.log('config words:', { majorWord, minorWord, patchWord, preReleaseWord, beforeCommits });
+  console.log('config words:', { majorWord, minorWord, patchWord, preReleaseWord, beforeCommit });
 
   // get default version bump
   let version = process.env.INPUT_DEFAULT;
@@ -134,12 +134,10 @@ const workspace = process.env.GITHUB_WORKSPACE;
     let newVersion = execSync(`npm version --git-tag-version=false ${version}`).toString().trim().replace(/^v/, '');
     newVersion = `${tagPrefix}${newVersion}`;
     if (process.env['INPUT_SKIP-COMMIT'] !== 'true') {
-      if (beforeCommits) {
-        for (const commit of beforeCommits) {
-          const commitArr = commit.split(' ');
-          const args = commitArr.slice(1);
-          await runInWorkspace(commitArr[0], args);
-        }
+      if (beforeCommit) {
+        const commitArr = beforeCommit.split(' ');
+        const args = commitArr.slice(1);
+        await runInWorkspace(commitArr[0], args);
       }
       await runInWorkspace('git', ['commit', '-a', '-m', commitMessage.replace(/{{version}}/g, newVersion)]);
     }
@@ -158,12 +156,10 @@ const workspace = process.env.GITHUB_WORKSPACE;
     try {
       // to support "actions/checkout@v1"
       if (process.env['INPUT_SKIP-COMMIT'] !== 'true') {
-        if (beforeCommits) {
-          for (const commit of beforeCommits) {
-            const commitArr = commit.split(' ');
-            const args = commitArr.slice(1);
-            await runInWorkspace(commitArr[0], args);
-          }
+        if (beforeCommit) {
+          const commitArr = beforeCommit.split(' ');
+          const args = commitArr.slice(1);
+          await runInWorkspace(commitArr[0], args);
         }
         await runInWorkspace('git', ['commit', '-a', '-m', commitMessage.replace(/{{version}}/g, newVersion)]);
       }
