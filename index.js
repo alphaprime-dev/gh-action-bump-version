@@ -69,8 +69,10 @@ const workspace = process.env.GITHUB_WORKSPACE;
   else if (matchMinorWord) version = 'minor';
   else if (patchWord && matchPatchWord) version = 'patch';
   else if (preReleaseWord) {
-    if (matchPreReleaseWord) {
-      foundWord = preReleaseWord;
+    const message = messages.find((message) => matchPattern(message, preReleaseWord));
+    if (message) {
+      const wordRegExp = convertToRegExp(preReleaseWord);
+      foundWord = message.match(wordRegExp)[0];
       preid = foundWord.split('-')[1];
       version = 'prerelease';
     }

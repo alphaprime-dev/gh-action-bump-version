@@ -17,14 +17,14 @@ inputs:
     required: false
   major-wording:
     description: 'Words list that trigger a major version bump'
-    default: 'BREAKING CHANGE'
+    default: '/BREAKING CHANGE|major/i'
     required: false
   patch-wording:
     description: 'Words list that trigger a patch version bump'
     required: false
   rc-wording:
     description: 'Words list that trigger a rc version bump'
-    default: 'pre-alpha'
+    default: '/pre-(alpha|beta|rc)/i'
     required: false
   skip-tag:
     description: 'Avoid to add a TAG to the version update commit'
