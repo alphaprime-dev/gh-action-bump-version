@@ -39,7 +39,7 @@ const workspace = process.env.GITHUB_WORKSPACE;
   const patchWord = process.env['INPUT_PATCH-WORDING'] || '';
   const preReleaseWord = process.env['INPUT_RC-WORDING'] || '';
 
-  const beforeCommit = process.env['INPUT_COMMIT-BEFORE'] ? process.env['INPUT_COMMIT-BEFORE'].split(',') : null;
+  const beforeCommit = process.env['INPUT_COMMIT-BEFORE'] || null;
 
   console.log('config words:', { majorWord, minorWord, patchWord, preReleaseWord, beforeCommit });
 
