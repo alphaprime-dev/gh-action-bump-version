@@ -13,18 +13,18 @@ inputs:
     required: false
   minor-wording:
     description: 'Words list that trigger a minor version bump'
-    default: '/feat|minor/i'
+    default: '/^feat|^minor/i'
     required: false
   major-wording:
     description: 'Words list that trigger a major version bump'
-    default: '/BREAKING CHANGE|major/i'
+    default: '/^BREAKING CHANGE|^major/i'
     required: false
   patch-wording:
     description: 'Words list that trigger a patch version bump'
     required: false
   rc-wording:
     description: 'Words list that trigger a rc version bump'
-    default: '/pre-(alpha|beta|rc)/i'
+    default: '/^pre-(alpha|beta|rc)/i'
     required: false
   skip-tag:
     description: 'Avoid to add a TAG to the version update commit'
